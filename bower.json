@@ -1,0 +1,22 @@
+{
+  "name": "ImageUpload",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Joona <joona.oikarinen@myy.haaga-helia.fi>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6"
+  }
+}
