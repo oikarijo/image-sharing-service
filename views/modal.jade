@@ -1,15 +1,16 @@
 div(class="modal-header")
- button(type='button' class="close" data-dismiss="modal") &times;
- h4(class="modal-title") THIS PICTURE HERE
+	button(type='button' class="close" data-dismiss="modal") &times;
+	img(src='uploads/' + id)
 div(class="modal-body")
- form(name='comment' action='/comment' method='post')
-  div(class='form-group')
-   label(for='comment-content') COMMENT
-   textarea(class='form-control' rows='3' id='comment-content')
-   input(type='submit' value='SEND' class='btn btn-success')
- if(comments)
-  for comment in comments
-   p #{comment} jeejee
-   hr
+	form(name='comment' action='/comment' method='post')
+		div(class='form-group')
+			label(for='comment-content') COMMENT
+			textarea(class='form-control' rows='3' id='comment-content' name='comment')
+			input(type='hidden' name='id' value=id)
+			input(type='submit' value='SEND' class='btn btn-success')
+	if(comments)
+		for comment in comments
+			p #{comment}
 div(class="modal-footer")
- button(type="button" class="clear btn btn-default" data-dismiss="modal") CLOSE
+	button(type="button" class="clear btn btn-default" data-dismiss="modal") CLOSE
+

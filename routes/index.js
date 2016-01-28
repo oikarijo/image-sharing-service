@@ -3,6 +3,8 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 
+var app = express();
+
 /* GET home page. */
 router.get('/', function(req, res){
 	fs.readdir(getPath(), function(err, files){
@@ -16,8 +18,7 @@ router.get('/', function(req, res){
 });
 
 router.param('id', function(req, res, next, id){
-	console.log("HELLOOOO");
-
+	req.id = id;
 	fs.readdir(getPath(), function(err, files){
 		if(err){
 			console.log(err);
@@ -25,14 +26,23 @@ router.param('id', function(req, res, next, id){
 		}
 		else{
 			if(files.indexOf(id) != -1){
-				fs.readFile(getPath(id), 'utf8', (err, data) => {
+				var path = getPath(id);
+				fs.access(path, fs.F_OK, function(err){
 					if(err){
-						console.log(err);
+						/* no comments exist for this file */
 						next();
 					}
 					else{
-						req.comments = JSON.parse(data);
-						next();
+						fs.readFile(path, 'utf8', function(err, data){
+							if(err){
+								/* Just some error */
+								next();
+							}
+							else{
+								req.comments = data.toString().split('\n');
+								next();
+							}
+						});
 					}
 				});
 			}
@@ -43,8 +53,7 @@ router.param('id', function(req, res, next, id){
 	});
 });
 
-router.get('/images/:id', renderHome);
-
+router.get('/:id', renderHome);
 
 function renderHome(req, res){
 	fs.readdir(getPath(), function(err, files){
@@ -54,11 +63,10 @@ function renderHome(req, res){
 		}
 		else{
 			if(req.comments){
-				var comments = req.comments;
-				res.render('modal', { title: 'Imgupload', files: files, comments: comments });
+				res.render('modal', { layout: false, files: files, comments: req.comments, id: req.id });
 			}
 			else{
-				res.render('modal', { title: 'Imgupload', files: files });	
+				res.render('modal', { layout: false, files: files, id: req.id });	
 			} 
 		}
 	});
@@ -66,14 +74,10 @@ function renderHome(req, res){
 
 function getPath(id){
 	if(id){
-		return path.join(__dirname, '../data/' + id.split('.').slice(0,1) + '.json');
+		return path.join(__dirname, '../data/' + id.split('.').slice(0,1) + '.txt');
 	}
 	else
 		return path.join(__dirname, '../public/uploads/');
-}
-
-function renderView(viewName, viewData){
-	
 }
 
 module.exports = router;
