@@ -29,7 +29,7 @@ router.param('id', function(req, res, next, id){
 				var path = getPath(id);
 				fs.access(path, fs.F_OK, function(err){
 					if(err){
-						/* no comments exist for this file */
+						/* no comments exist for this picture */
 						next();
 					}
 					else{
@@ -58,12 +58,11 @@ router.get('/:id', renderHome);
 function renderHome(req, res){
 	fs.readdir(getPath(), function(err, files){
 		if(err){
-			console.log(err);
 			res.redirect('back');
 		}
 		else{
 			if(req.comments){
-				res.render('modal', { layout: false, files: files, comments: req.comments, id: req.id });
+				res.render('modal', { layout: false, files: files, comments: req.comments.filter(Boolean), id: req.id });
 			}
 			else{
 				res.render('modal', { layout: false, files: files, id: req.id });	

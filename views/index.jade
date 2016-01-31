@@ -7,14 +7,11 @@ block content
 	p #{hello}
 	form(name="upload", action="/upload", method="post", enctype="multipart/form-data")
 		input(type="file", name="image", accept="image/*")
-		input(type="submit", value="upload" class='btn btn-primary')
+		input(type="submit", value="UPLOAD" class='btn btn-primary')
 
 	for val in files
 		a(href='/' + val data-toggle='modal' data-target='#myModal' class='thumb')
 			img(src='uploads/' + val class='img-thumbnail thumb')
-
-	a(href='/102388.jpg') 102388
-
 	div(class='modal fade' id='myModal' role='dialog')
 		div(class='modal-dialog')
 			div(class="modal-content")

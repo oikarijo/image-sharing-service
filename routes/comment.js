@@ -2,22 +2,23 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var fs = require('fs');
+var io = require('../io');
 
-router.post('/', function(req, res){
-	console.log(req.body.comment);
-	console.log(req.body.id);
+io.on('connection', function(socket){
+	socket.on('comment added', function(msg){
+		saveComment(msg);
+		io.emit('refresh comments', msg['comment']);
+	});
+});
 
-	var filename = req.body.id.slice(0, -4);
-	console.log(filename);
+function saveComment(msg){
+	var filename = msg['id'].slice(0, -4);
 
 	var file = path.join(__dirname, '../data/' + filename + '.txt');
-	console.log(file);
-	fs.appendFile(file, req.body.comment + '\n', (err) => {
-		if(err) throw err;
-		console.log('data appended');
-	});
 
-	res.redirect('/' + req.body.id);
-});
+	fs.appendFile(file, msg['comment'] + '\n', (err) => {
+		if(err) throw err;
+	});
+}
 
 module.exports = router;
