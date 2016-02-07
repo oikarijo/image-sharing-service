@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var path = require('path');
-
-var app = express();
+var uploads = require('../modules/upload');
 
 /* GET home page. */
 router.get('/', function(req, res){
@@ -54,6 +53,17 @@ router.param('id', function(req, res, next, id){
 });
 
 router.get('/:id', renderHome);
+
+router.post('/upload', function(req, res){
+
+	uploads.uploadFile(req, res, function(err){
+		if(err){
+			console.log(err);
+			res.redirect('/');
+		}
+	});
+	res.redirect('/');
+});
 
 function renderHome(req, res){
 	fs.readdir(getPath(), function(err, files){
