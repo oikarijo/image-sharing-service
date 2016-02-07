@@ -1,6 +1,7 @@
 div(class="modal-header")
 	button(type='button' class="close" data-dismiss="modal") &times;
-	img(src='uploads/' + id)
+	div(id='image-container')
+		img(src='uploads/' + id id='image-big')
 div(class="modal-body")
 	div(class='form-group')
 		label(for='comment_content') COMMENTS

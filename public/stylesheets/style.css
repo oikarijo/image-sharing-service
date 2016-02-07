@@ -1,9 +1,27 @@
 body {
-  background-color: #0E1F30;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	background-color: #0E1F30;
+	padding: 50px;
+	font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+	color: #00B7FF;
+}
+p {
+	color: black;
+}
+#image-container {
+	width: 100%;
+	height: 100%;
+}
+#image-big {
+	height: inherit;
+	width: inherit;
+}
+#image-thumb {
+	max-width: 200px;
+	max-height: 200px;
+	border: solid 2px;
+	margin-top: 5px;
+	margin-right: 5px;
 }

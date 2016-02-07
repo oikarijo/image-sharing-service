@@ -4,14 +4,13 @@ block content
 	a(href="/")
 		h1= title
 	p Welcome to #{title}
-	p #{hello}
-	form(name="upload", action="/upload", method="post", enctype="multipart/form-data")
-		input(type="file", name="image", accept="image/*")
-		input(type="submit", value="UPLOAD" class='btn btn-primary')
+	form(name="upload", method="post", action='/upload' enctype="multipart/form-data")
+		input(type="file", name="image", accept="image/*" class='btn btn-primary' id='image-file')
+		input(type="submit", value="UPLOAD" class='btn')
 
 	for val in files
-		a(href='/' + val data-toggle='modal' data-target='#myModal' class='thumb')
-			img(src='uploads/' + val class='img-thumbnail thumb')
+		a(href='/' + val data-toggle='modal' data-target='#myModal')
+			img(src='uploads/' + val id='image-thumb')
 	div(class='modal fade' id='myModal' role='dialog')
 		div(class='modal-dialog')
 			div(class="modal-content")
