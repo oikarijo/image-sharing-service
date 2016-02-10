@@ -7,6 +7,9 @@ body {
 a {
 	color: #00B7FF;
 }
+a:hover, .btn:hover {
+	color: #ECECEC;
+}
 p {
 	color: black;
 }
